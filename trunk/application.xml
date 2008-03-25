@@ -21,7 +21,7 @@
 	<filename>abroad</filename>
 
 	<!-- The name that is displayed in the AIR application installer. Optional. -->
-	<name>abroad-air</name>
+	<name>AB-ROAD</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
 	<version>1.0</version>
@@ -36,7 +36,7 @@ http://ngsdev.org/</copyright>
 	<!-- Settings for the application's initial window. Required. -->
 	<initialWindow>
 		<!-- The main HTML file of the application. Required. -->
-		<content>abroad-air.html</content>
+		<content>abroad.html</content>
 		
 		<!-- The title of the main window. Optional. -->
 		<title/>
