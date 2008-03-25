@@ -1,53 +1,21 @@
-<html>
-	<head>
-        <title>Application Sandbox sample</title>
-        <link href="sample.css" rel="stylesheet" type="text/css"/>
-        
-         <!-- Uncomment the following line to add introspection.  When running the application hit F12 to bring up the introspector -->
-        <!-- <script type="text/javascript" src="AIRIntrospector.js"></script> -->
-        
-        <script type="text/javascript" src="AIRAliases.js"></script>
-        <script type="text/javascript">
-            // AIR-related functions created by the developer
-            
-            // reads the content of a local text file
-            function readLocalFile(){
-                var f = air.File.applicationDirectory.resolvePath("LocalFile.txt");
-				
-                var fs = new air.FileStream();
-                fs.open(f, air.FileMode.READ);
-                var content = fs.readUTFBytes(fs.bytesAvailable);
-                fs.close();
-                
-                return content;
-            }
-            
-            // loads the content of a remote URL
-            function doRequest(url) {
-               var req = new XMLHttpRequest();
-               req.onreadystatechange = function() { 
-                    if (req.readyState == 4) {
-                        var str = req.responseText;
-                        if (str.length > 400) {
-                            str = str.substring(0, 399);
-                            str += "..";
-                        }
-                        alert('readystate: ' + req.readyState + '\n' +
-                            'status/statusText: ' + req.status + '/' + 
-                             req.statusText + '\n' +
-                            'responseText (400 chars): '  + "\n\n" + str);
-                    }
-                };
-                req.open('GET', url, true);
-                req.send(null);                
-            }
-			
-			function openInBrowser(url) {
-				air.navigateToURL( new air.URLRequest(url)); 
-			}
-            
-        </script>
-	</head>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja" id="abroad-widget">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta name="generator" content="Aptana">
+	<link rev="made" title="atsushi nagase" href="http://ngsdev.org/">
+	<link rel="stylesheet" type="text/css" media="all" href="abroad.css">
+	<script type="text/javascript" src="lib/jquery.js" charset="utf-8"></script>
+	<script type="text/javascript" src="lib/jquery.form.js" charset="utf-8"></script>
+	<script type="text/javascript" src="lib/recruit.ui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="lib/abroad.ui.js" charset="utf-8"></script>
+	<script type="text/javascript" src="lib/scriptrunner.js" charset="utf-8"></script>
+	<script type="text/javascript" src="abroad.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://widgets.ngsdev.org/info/abroad-air.js" charset="utf-8"></script>
+	<title>エイビーロード ツアー検索</title>
+</head>
 
     <body>
         <h3>Application Sandbox Content</h3>
