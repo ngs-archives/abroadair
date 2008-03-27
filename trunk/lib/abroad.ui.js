@@ -219,143 +219,31 @@ Class.create( Recruit.UI.Base.Pulldown, {
 
 /*
  * ABROAD.UI.Places.Pulldown - エリア選択 プルダウン
- * VERSION 1.00
+ * VERSION 1.01
  * CHANGES
+ *   2008-03-26 v1.01 Recruit.UI.Base.Hierarchy 利用に変更
  *   2007-12-21 v1.00 released
  */
 if( typeof( ABROAD.UI.Places ) != 'function' ) {
     ABROAD.UI.Places = function (){};
 }
-/*
- * ABROAD.UI.Places
- */
-ABROAD.UI.Places.find_place_by_code = function ( hash ){
-    hash = $.extend({
-        area     : undefined,
-        country  : undefined,
-        city     : undefined,
-        callback : function (){}
-    }, hash );
-    if( hash.city ){
-        var drv = new Recruit.UI.Driver.JSONP({
-            url : 'http://webservice.recruit.co.jp/ab-road/city/v1/'
-        });
-        drv.get( function ( success ){
-            if( !success ){ return } 
-            hash.callback( this.results.city[0] );
-        }, { city: hash.city } );
-    }else if( hash.country ){
-        var drv = new Recruit.UI.Driver.JSONP({
-            url : 'http://webservice.recruit.co.jp/ab-road/country/v1/'
-        });
-        drv.get( function ( success ){
-            if( !success ){ return } 
-            hash.callback( this.results.country[0] );
-        }, { country: hash.country } );
-    }else if( hash.area ){
-        var drv = new Recruit.UI.Driver.JSONP({
-            url : 'http://webservice.recruit.co.jp/ab-road/area/v1/'
-        });
-        drv.get( function ( success ){
-            if( !success ){ return } 
-            hash.callback( this.results.area[0] );
-        }, { area: hash.area } );
-    }
-    return false;
-}
-
-
-if( typeof( ABROAD.UI.Places.Area ) != 'function' ) {
-    ABROAD.UI.Places.Area = function (){};
-}
-if( typeof( ABROAD.UI.Places.Country ) != 'function' ) {
-    ABROAD.UI.Places.Country = function (){};
-}
-if( typeof( ABROAD.UI.Places.City ) != 'function' ) {
-    ABROAD.UI.Places.City = function (){};
-}
-/*
- * ABROAD.UI.Places.Pulldown
- */
-ABROAD.UI.Places.Pulldown = Class.create({
-    initialize: function ( hash ){
-        if( typeof hash != 'object' ){ hash = {} }
-        var prm_area    = $.extend( {}, hash.area );
-        var prm_country = $.extend( {}, hash.country );
-        var prm_city    = $.extend( {}, hash.city );
-        // does it need default val resolving?
-        var def_type = '';
-        if        ( prm_city.val ){ def_type = 'city'    }
-        else if( prm_country.val ){ def_type = 'country' }
-        else if   ( prm_area.val ){ def_type = 'area'    }
-        // define post handler
-        var _self = this;
-        var process = function ( itm ){
-            if( def_type == 'city' && itm ){
-                prm_area.val     = itm.area.code;
-                prm_country.area = itm.area.code;
-                prm_country.val  = itm.country.code;
-                prm_city.country = itm.country.code;
-            }else if( def_type == 'country' && itm ){
-                prm_area.val     = itm.area.code;
-                prm_country.area = itm.area.code;
-                prm_city.country = itm.code;
-            }else if( def_type == 'area' ){
-                prm_country.area = prm_area.val;
-            }
-            // create pulldown
-            var ar = new ABROAD.UI.Places.Area.Pulldown( prm_area );
-            var co = new ABROAD.UI.Places.Country.Pulldown( prm_country );
-            var ci = new ABROAD.UI.Places.City.Pulldown( prm_city );
-            if( ar.elm.length > 0 ){
-                this.area = ar;
-            }
-            if( co.elm.length > 0 ){
-                this.country = co;
-            }
-            if( ci.elm.length > 0 ){
-                this.city = ci;
-            }
-            // add on change handler
-            if( this.area && this.country ){
-                this.area.elm.change( function (){
-                    if( _self.city ){
-                        _self.city.reset_ui();
-                    }
-                    _self.country.area = _self.area.elm.val();
-                    _self.country.update_ui();
-                });
-            }
-            if( this.country && this.city ){
-                this.country.elm.change( function (){
-                    _self.city.country = _self.country.elm.val();
-                    _self.city.update_ui();
-                });
-            }
-        };
-        // do ajax default code resolving
-        if( def_type == 'city' ){
-            ABROAD.UI.Places.find_place_by_code({
-                city: prm_city.val,
-                callback: function ( itm ){
-                    process.apply( _self, [ itm ] );
-                }
-            });
-        }else if( def_type == 'country' ){
-            ABROAD.UI.Places.find_place_by_code({
-                country: prm_country.val,
-                callback: function ( itm ){
-                    process.apply( _self, [ itm ] );
-                }
-            });
-        }else{
-            process.apply( this, [] ); 
-        }
+ABROAD.UI.Places.Pulldown =
+Class.create( Recruit.UI.Base.Hierarchy, {
+    _get_definition : function (){
+        var ret = [
+            { cls: ABROAD.UI.Places.Area.Pulldown    },
+            { cls: ABROAD.UI.Places.Country.Pulldown },
+            { cls: ABROAD.UI.Places.City.Pulldown    }
+        ];
+        return ret;
     }
 });
 /*
  * ABROAD.UI.Places.Area.Pulldown
  */
+if( typeof( ABROAD.UI.Places.Area ) != 'function' ) {
+    ABROAD.UI.Places.Area = function (){};
+}
 ABROAD.UI.Places.Area.Pulldown =
 Class.create( Recruit.UI.Base.Pulldown.JSONP, {
     get_selections: function (){
@@ -380,7 +268,7 @@ Class.create( Recruit.UI.Base.Pulldown.JSONP, {
     },
     _get_driver: function (){
         return new Recruit.UI.Driver.JSONP({
-            url : 'http://webservice.recruit.co.jp/ab-road/area/v1/'
+            url : '/ab-road/area/v1/'
         });
     },
     _get_selections_material: function (){
@@ -390,6 +278,9 @@ Class.create( Recruit.UI.Base.Pulldown.JSONP, {
 /*
  * ABROAD.UI.Places.Country.Pulldown
  */
+if( typeof( ABROAD.UI.Places.Country ) != 'function' ) {
+    ABROAD.UI.Places.Country = function (){};
+}
 ABROAD.UI.Places.Country.Pulldown =
 Class.create( ABROAD.UI.Places.Area.Pulldown, {
     _get_def_props: function (){
@@ -404,7 +295,7 @@ Class.create( ABROAD.UI.Places.Area.Pulldown, {
     },
     _get_driver: function (){
         return new Recruit.UI.Driver.JSONP({
-            url : 'http://webservice.recruit.co.jp/ab-road/country/v1/'
+            url : '/ab-road/country/v1/'
         });
     },
     _get_selections_material: function (){
@@ -414,6 +305,9 @@ Class.create( ABROAD.UI.Places.Area.Pulldown, {
 /*
  * ABROAD.UI.Places.City.Pulldown
  */
+if( typeof( ABROAD.UI.Places.City ) != 'function' ) {
+    ABROAD.UI.Places.City = function (){};
+}
 ABROAD.UI.Places.City.Pulldown =
 Class.create( ABROAD.UI.Places.Area.Pulldown, {
     _get_def_props: function (){
@@ -428,7 +322,7 @@ Class.create( ABROAD.UI.Places.Area.Pulldown, {
     },
     _get_driver: function (){
         return new Recruit.UI.Driver.JSONP({
-            url : 'http://webservice.recruit.co.jp/ab-road/city/v1/'
+            url : '/ab-road/city/v1/'
         });
     },
     _get_selections_material: function (){
