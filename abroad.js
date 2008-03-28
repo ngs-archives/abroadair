@@ -5,7 +5,7 @@ var ABROADWidget = {
 	templates : {},
 	elements : {},
 	update : null,
-	version : "1.0.2",
+	version : "1.0",
 	init : function() {
 		var gv = function(i) { return ABROADWidget.pref.get(i); }
 		var pd = {};
@@ -46,31 +46,10 @@ var ABROADWidget = {
 		$("input[@type='text']").click(function(){ this.select(); })
 		$("form#search-form").submit(function(){ ABROADWidget.search(); return false; });
 		$("div#error").click(function(){ ABROADWidget.setStatus("search"); });
-		if(window.widget) {
-			this.elements.scrollarea = CreateScrollArea("results", {
-				hasVerticalScrollbar:true, scrollbarDivSize:15,
-				autoHideScrollbars:true, scrollbarMargin:2, spacing:4
-			});
-			this.elements.scrollbar = this.elements.scrollarea._scrollbars[0];
-			var opts = [], act = $("select#ab-order-sel")[0].selectedIndex;
-			$("select#ab-order-sel option").each(function(i){
-				opts.push("['"+$(this).text()+"','"+$(this).val()+"'"+(i==act?",true":"")+"]");
-			});
-			opts = "["+opts.join(",")+"]";
-			$("select#ab-order-sel").remove();
-			this.elements.sortorder = CreatePopupButton("sort-order-popup", {
-				options: opts, rightImageWidth: 16, leftImageWidth: 7
-			});
-			$(this.elements.sortorder.select).change(function(e){ ABROADWidget.changeSort($(this).val()); });
-			this.elements.infobutton = CreateInfoButton('info-button', {
-				onclick : function(){ ABROADWidget.setStatus("back"); },
-				foregroundStyle:"white", frontID:"front", backgroundStyle:"white"
-			});
-			this.elements.donebutton = CreateGlassButton("done-button", {
-				onclick: function(){ ABROADWidget.setStatus("front"); },
-				text: "OK"
-			});
-		} else $("body").addClass("browser");
+		$("body").addClass("browser");
+		if(window.nativeWindow) {
+			$("#frame").mousedown(function(){ window.nativeWindow.startMove() });
+		}
 		//
 		$("div#page-navi p.current span.c").html("<#cp>");
 		$("div#page-navi p.current span.t").html("<#lp>");
@@ -132,7 +111,6 @@ var ABROADWidget = {
 			reverse = "ToFront";
 			i = this._status;
 		}
-		if(window.widget&&reverse) widget.prepareForTransition(reverse);
 		$.each(["complete","confirm","error","loading","search","back"],function(){
 			if(this!=i) $("body").removeClass(this);
 			else {
@@ -160,7 +138,6 @@ var ABROADWidget = {
 				break;
 				
 		}
-		if(window.widget&&reverse) setTimeout ("widget.performTransition();", 0);
 		if(bool&&i!="back") this._status = i;
 		return bool;
 	},
@@ -266,9 +243,7 @@ var ABROADWidget = {
 			if(k&&window.widget) widget.setPreferenceForKey(v, createInstancePreferenceKey(k));
 		},
 		get : function(k) {
-			if(!window.widget) return "";
-			var v = k ? widget.preferenceForKey(createInstancePreferenceKey(k)) : "";
-			return v?v:"";
+			return "";
 		},
 		remember : function() {
 			var ipt = ABROADWidget.elements.searchform.input;
