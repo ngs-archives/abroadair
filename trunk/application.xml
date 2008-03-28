@@ -15,12 +15,12 @@
 		<minimizable>true</minimizable>
 		<maximizable>true</maximizable>
 		<resizable>true</resizable>
-		<width>1024</width>
-		<height>768</height>
+		<width>434</width>
+		<height>330</height>
 		<x>200</x>
 		<y>200</y>
-		<minSize>800 600</minSize>
-		<maxSize>1280 1024</maxSize>
+		<minSize>434 330</minSize>
+		<maxSize>434 330</maxSize>
 	</initialWindow>
 	<icon>
 		<image16x16>icons/AIRApp_16.png</image16x16>
