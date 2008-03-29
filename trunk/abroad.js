@@ -48,7 +48,14 @@ var ABROADWidget = {
 		$("div#error").click(function(){ ABROADWidget.setStatus("search"); });
 		$("body").addClass("browser");
 		if(window.nativeWindow) {
-			$("#frame").mousedown(function(){ window.nativeWindow.startMove() });
+			$("#frame").mousedown(function(){
+				$("body").one("mouseup",function(){
+					var w = window.nativeWindow;
+					ABROADWidget.editor.write("window.txt",[w.x,w.y,w.width,w.height].join(","));
+					
+				});
+				window.nativeWindow.startMove();
+			});
 		}
 		//
 		$("div#page-navi p.current span.c").html("<#cp>");
@@ -256,6 +263,24 @@ var ABROADWidget = {
 			},99);
 		}
 	},
+	editor : {
+		write : function(fname,strd) {
+			var file = air.File.applicationStorageDirectory.resolvePath(fname);
+			var stream = new air.FileStream();
+			stream.open(file, air.FileMode.WRITE);
+			stream.writeMultiByte(strd, air.File.systemCharset);
+			stream.close();
+		},
+		read : function(fname) {
+			var file = air.File.applicationStorageDirectory.resolvePath(fname);
+			if(!file.exists) return "";
+			var stream = new air.FileStream();
+			stream.open(file, air.FileMode.READ);
+			var data = stream.readMultiByte(stream.bytesAvailable, air.File.systemCharset);
+			stream.close();
+			return data;
+		}
+	},
 	getBeacon : function() {
 		return "<img src=\"http:\/\/ad.jp.ap.valuecommerce.com\/servlet\/gifbanner?sid=2462325&pid=876800001\" class=\"beacon\" style=\"position:absolute; top:-9999px; left:-9999px;\" \/>";
 	},
@@ -267,3 +292,10 @@ var ABROADWidget = {
 $(document).ready(function(){
 	ABROADWidget.init();
 });
+
+var pos = ABROADWidget.editor.read("window.txt");
+if(pos) {
+	pos = pos.split(",");
+	$.each(pos,function(i){ pos[i] = parseInt(this); });
+	window.nativeWindow.bounds = new air.Rectangle(pos[0],pos[1],pos[2],pos[3]);
+}
