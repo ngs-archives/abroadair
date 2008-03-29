@@ -226,8 +226,9 @@ var ABROADWidget = {
 		return true;
 	},
 	getURL : function(h) {
-		if (window.widget) widget.openURL(h);
-		else window.open(h);
+		if (air&&air.navigateToURL) {
+			air.navigateToURL(new air.URLRequest(h),"_blank");
+		} else window.open(h);
 		return false;
 	},
 	changeSort : function(h) {
