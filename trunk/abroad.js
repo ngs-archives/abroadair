@@ -161,17 +161,15 @@ var ABROADWidget = {
 			request: function(i) { ABROADWidget.search(i); },
 			template : this.templates.page
 		});
-		var sa = this.elements.scrollarea;
-		var sb = this.elements.scrollbar;
-		this.setStatus("complete");
-		if(sa) {
-			sa.refresh();
-			sa.verticalScrollTo(0);
-		}
-		if((sb&&!sb.hidden)||$("div#cassettes").height()>$("div#results").height())
-			$("div#results").addClass("overflow");
-		else
-			$("div#results").removeClass("overflow");
+		$("div#results").addClass("hidden");
+		setTimeout(function(){
+			$("div#results").removeClass("hidden");
+			ABROADWidget.setStatus("complete");
+			if($("div#cassettes").height()>$("div#results").height())
+				$("div#results").addClass("overflow");
+			else
+				$("div#results").removeClass("overflow");
+		},99);
 		return true;
 	},
 	appendCassettes : function(tours) {
