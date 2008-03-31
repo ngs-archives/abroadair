@@ -1,5 +1,4 @@
 Recruit.UI.key = 'ef4393b09d77dbc2';
-
 var ABROADWidget = {
 	results : false,
 	templates : {},
@@ -21,6 +20,8 @@ var ABROADWidget = {
 				max : { val:gv(i+"_max") }
 			});
 		});
+		$("form#search-form input[@name='order']").val(gv("order"));
+		$("#ab-order-sel").change(function(e){ ABROADWidget.changeSort($(this).val()); });
 		//
 		$("a[@href='http://www.ab-road.net/']").append(this.getBeacon());
 		$("a[@href='http://www.ab-road.net/']").attr("href",this.vcURL("http:\/\/www.ab-road.net\/"));
@@ -44,10 +45,11 @@ var ABROADWidget = {
 		});
 		$("a[@rel='external']").click(function(){ return ABROADWidget.getURL($(this).attr("href")); });
 		$("a[@rel='set-status']").click(function(){ ABROADWidget.setStatus($(this).attr("href").split("#").pop()); return false; });
+		$("a[@rel='close']").click(function(){ window.nativeWindow.close(); return false; });
+		$("a[@rel='minimize']").click(function(){ window.nativeWindow.minimize(); return false; });
 		$("input[@type='text']").click(function(){ this.select(); })
 		$("form#search-form").submit(function(){ ABROADWidget.search(); return false; });
 		$("div#error").click(function(){ ABROADWidget.setStatus("search"); });
-		$("#ab-order-sel").change(function(e){ ABROADWidget.changeSort($(this).val()); });
 		$("body").addClass("browser");
 		if(window.nativeWindow) {
 			$("#navi-top").mousedown(function(){
@@ -246,21 +248,44 @@ var ABROADWidget = {
 		return false;
 	},
 	pref : {
-		set : function(k,v) {
-			if(k&&window.widget) widget.setPreferenceForKey(v, createInstancePreferenceKey(k));
+		set : function(k,v,nosave) {
+			this._obj = this._obj ? this._obj : {};
+			this._obj[k] = v;
+			if(!nosave) this.save();
 		},
 		get : function(k) {
-			return "";
+			this._obj = this._obj ? this._obj : this.load();
+			return this._obj[k] ? this._obj[k] : "";
+		},
+		save : function() {
+			var xml = "<data>"
+			$.each(this._obj,function(i){
+				xml += "<"+i+">"+this+"<\/"+i+">";
+			});
+			xml += "<\/data>";
+			ABROADWidget.editor.write("plist.xml",xml);
+		},
+		load : function() {
+			var sobj = {};
+			var xml = ABROADWidget.editor.read("plist.xml");
+			if(!xml) return {};
+			xml = $(xml);
+			$("*",xml).each(function(){
+				sobj[this.tagName.toLowerCase()] = $(this).text();
+			});
+			return sobj;
 		},
 		remember : function() {
 			var ipt = ABROADWidget.elements.searchform.input;
 			setTimeout(function(){
 				ipt.each(function(){
 					var k = $(this).attr("name");
-					if(k) ABROADWidget.pref.set(k,$(this).val());
+					if(k) ABROADWidget.pref.set(k,$(this).val(),true);
 				})
+				ABROADWidget.pref.save();
 			},99);
-		}
+		},
+		_obj : null
 	},
 	editor : {
 		write : function(fname,strd) {

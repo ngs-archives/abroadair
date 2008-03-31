@@ -42,6 +42,11 @@ div#frame div#navi-top p.powered { float:left; padding:0 0 0 10px; }
 div#frame div#navi-top p.powered a { width:95px; height:25px; float:left; display:block; text-indent:-9999px; overflow:hidden; }
 div#frame div#navi-top p.hitnum { float:right; padding:2px 8px 2px 5px; font-size:100%; color:#fff; display:none; }
 div#frame div#navi-top p.hitnum em { font-size:150%; font-family:"Arial Black"; margin-right:2px; }
+div#frame div#navi-top ul#window-ctrl { margin:0; padding:0; position:absolute; top:-5px; right:3px; list-style:none; }
+div#frame div#navi-top ul#window-ctrl li { float:left; margin:0; padding:0 2px 0 0; }
+div#frame div#navi-top ul#window-ctrl li a { display:block; float:left; width:13px; height:13px; font-size:1px; text-indent:-9999px; }
+div#frame div#navi-top ul#window-ctrl li.close a { background-image:url(images/close.png) }
+div#frame div#navi-top ul#window-ctrl li.minimize a { background-image:url(images/minimize.png) }
 div#frame div#navi-bottom p.search { float:left; }
 div#frame div#navi-bottom { top:279px; color:#fff; }
 div#frame div#navi-bottom div#page-navi { float:right; display:none; }
@@ -62,7 +67,7 @@ div#frame div#navi-bottom p#search-button a { background-image:url(images/navi-s
 div#frame div#navi-bottom p#submit-button a { background-image:url(images/navi-submit.png); }
 div#frame div#navi-bottom p#reset-button { padding-left:3px; }
 div#frame div#navi-bottom p#reset-button a { background-image:url(images/navi-reset.png); width:63px; }
-div#frame div#navi-bottom div#sort-order-popup { text-align: left; width:115px; height:19px; float:left; position:relative; top:4px; left:3px; font-weight:bold; }
+div#frame div#navi-bottom div#sort-order-popup { text-align: left; width:115px; height:19px; float:left; position:relative; top:4px; left:3px; }
 div#frame div#navi-bottom div#sort-order-popup select { border:1px solid #e33; background:#f00; }
 body.confirm div#frame div#navi-bottom div#sort-order-popup,
 body.search div#frame div#navi-bottom div#sort-order-popup,
@@ -85,7 +90,7 @@ div#results.overflow div#content div.cassette { width:370px; background-image:ur
 div#results.overflow div#content div.cassette div.info { background-image:url(images/cas-bottom2.png) }
 
 div#search form { margin:0; padding:3px; }
-div#search h2 { margin:0; padding:7px; font-size:100%; color:#666; }
+div#search h2 { margin:0; padding:9px 7px; font-size:100%; color:#666; }
 div#search fieldset { width:100%; float:left; background:url(images/form-fieldset.png) no-repeat 0 0; height:38px; }
 div#search fieldset label { display:block; float:left; font-size:110%; font-weight:bold; color:#595959; }
 div#search fieldset legend label { width:66px; padding:13px 0 0 0; text-indent:13px; }
@@ -95,10 +100,13 @@ div#search fieldset span.spl { position:relative; top:8px; left:8px; display:blo
 div#search fieldset span.spl { padding:5px; }
 div#search fieldset p { margin:0; }
 div#search fieldset p.ele { width:318px; background:url(images/form-input.png) no-repeat 0 2px; height:36px; float:left; }
-div#search fieldset.dept { margin-bottom:-1px; }
+div#search fieldset.dept,
+div#search fieldset.dept2,
+div#search fieldset.month { margin-bottom:-1px; }
 div#search fieldset.dept p { float:left; width:192px; background:url(images/form-input.png) no-repeat 66px 2px; height:36px; }
 div#search fieldset.dept p label { padding:13px 0 0 0; text-indent:13px; width:66px; }
-div#search fieldset.dept p select { width:110px; }
+div#search fieldset.month p select,
+div#search fieldset.dept2 p select { width:110px; }
 div#search fieldset.destination { margin-bottom:3px; }
 div#search fieldset.destination p select { width:97px; margin:0 8px 0 0; }
 div#search fieldset.term { margin-bottom:-1px; }
