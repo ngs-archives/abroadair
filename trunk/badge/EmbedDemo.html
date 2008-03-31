@@ -9,29 +9,12 @@
 	<script type="text/javascript" src="swfobject.js"></script>
 	
 </head>
-<body color="#FFFFFF">
-
-
-	<div style="width: 600px; font-family: sans-serif;">
-		<p>
-			This file shows how to embed an Adobe® AIR™ Badge installer using the <a href="http://blog.deconcept.com/swfobject/">SWFObject</a> embed method by <a href="http://blog.deconcept.com/">Geoff Stearns</a>.
-		</p>
-		<p>
-			<strong>Note: </strong> This demo may not run properly from the local file system without modifying your security settings (you should be prompted for this).
-		</p>
-		<p>
-			Please read all of the comments in this file, and edit all of the parameters prior to deploying your badge!
-		</p>
-	</div>
-
+<body style="margin:0; padding:0;">
 <!-- BEGIN EMBED CODE -->
 	
 	<!-- IMPORTANT: Make sure you also copy the swfobject script tag from the head above -->
 	
-	<div id="flashcontent" style="width:215px; height:180px;">
-		<strong>Please upgrade your Flash Player</strong>
-		This is the content that would be shown if the user does not have Flash Player 6.0.65 or higher installed.
-	</div>
+	<div id="flashcontent" style="width:215px; height:180px;"></div>
 
 	<script type="text/javascript">
 		// <![CDATA[
@@ -43,14 +26,14 @@
 		// these parameters are required for badge install:
 		so.addVariable("airversion", "1.0"); // version of AIR runtime required
 		so.addVariable("appname", "My Application"); // application name to display to the user
-		so.addVariable("appurl", "http://www.mysite.com/sampleApp.air"); // absolute URL (beginning with http or https) of the application ".air" file
+		so.addVariable("appurl", "http://abroadair.googlecode.com/files/abroad10.air"); // absolute URL (beginning with http or https) of the application ".air" file
 		
 		// these parameters are required to support launching apps from the badge (but optional for install):
-		so.addVariable("appid", "MyApplication"); // the qualified application ID (ex. com.gskinner.air.MyApplication)
-		so.addVariable("pubid", ""); // publisher id
+		so.addVariable("appid", "AB-ROAD"); // the qualified application ID (ex. com.gskinner.air.MyApplication)
+		so.addVariable("pubid", "org.ngsdev.abroad"); // publisher id
 		
 		// this parameter is required in addition to the above to support upgrading from the badge:
-		so.addVariable("appversion", "1.0.2"); // AIR application version
+		so.addVariable("appversion", "1.0"); // AIR application version
 		
 		// these parameters are optional:
 		so.addVariable("imageurl", "demoImage.jpg"); // URL for an image (JPG, PNG, GIF) or SWF to display in the badge (205px wide, 170px high)
