@@ -21,6 +21,7 @@ var ABROADWidget = {
 				max : { val:gv(i+"_max") }
 			});
 		});
+		//
 		$("a[@href='http://www.ab-road.net/']").append(this.getBeacon());
 		$("a[@href='http://www.ab-road.net/']").attr("href",this.vcURL("http:\/\/www.ab-road.net\/"));
 		pd.places = new ABROAD.UI.Places.Pulldown({
@@ -46,13 +47,13 @@ var ABROADWidget = {
 		$("input[@type='text']").click(function(){ this.select(); })
 		$("form#search-form").submit(function(){ ABROADWidget.search(); return false; });
 		$("div#error").click(function(){ ABROADWidget.setStatus("search"); });
+		$("#ab-order-sel").change(function(e){ ABROADWidget.changeSort($(this).val()); });
 		$("body").addClass("browser");
 		if(window.nativeWindow) {
-			$("#frame").mousedown(function(){
+			$("#navi-top").mousedown(function(){
 				$("body").one("mouseup",function(){
 					var w = window.nativeWindow;
 					ABROADWidget.editor.write("window.txt",[w.x,w.y,w.width,w.height].join(","));
-					
 				});
 				window.nativeWindow.startMove();
 			});

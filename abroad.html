@@ -33,8 +33,8 @@
 			<p class="reset button" id="reset-button"><a href="#search-form" rel="reset">リセット</a></p>
 			<div id="sort-order-popup">
 				<form action=".">
-					<label for="sort-order-popup-select"></label>
-					<select id="sort-order-popup-select"></select>
+					<label for="ab-order-sel" class="hidden">並び順</label>
+					<select id="ab-order-sel"></select>
 				</form>
 			</div>
 			<div id="page-navi">
@@ -126,7 +126,6 @@
 				<p class="ele"><input type="text" name="keyword" id="ab-keyword-ipt" /></p>
 			</fieldset>
 			<fieldset class="hidden">
-				<select id="ab-order-sel"></select>
 				<input type="hidden" name="count" value="10" />
 				<input type="hidden" name="order" value="" />
 			</fieldset>
