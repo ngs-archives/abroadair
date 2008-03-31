@@ -10,8 +10,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.asdt.compiler.ASBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>com.aptana.ide.apollo.apollonature</nature>
+		<nature>org.asdt.core.ASNature</nature>
 	</natures>
 </projectDescription>
