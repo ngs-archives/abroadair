@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/1.0">
+	<id>org.ngsdev.abroad</id>
+	<filename>abroad</filename>
+	<name>AB-ROAD</name>
+	<version>1.0</version>
+	<description>エイビーロードに掲載されているツアー情報を検索するAIRウィジェットです。</description>
+	<copyright>atsushi nagase http://ngsdev.org/</copyright>
+	<initialWindow>
+		<content>abroad.html</content>
+		<title/>
+		<systemChrome>none</systemChrome>
+		<transparent>true</transparent>
+		<visible>true</visible>
+		<minimizable>true</minimizable>
+		<maximizable>true</maximizable>
+		<resizable>true</resizable>
+		<width>434</width>
+		<height>330</height>
+		<x>200</x>
+		<y>200</y>
+		<minSize>434 330</minSize>
+		<maxSize>434 330</maxSize>
+	</initialWindow>
+	<icon>
+		<image16x16>icons/AIRApp_16.png</image16x16>
+		<image32x32>icons/AIRApp_32.png</image32x32>
+		<image48x48>icons/AIRApp_48.png</image48x48>
+		<image128x128>icons/AIRApp_128.png</image128x128>
+	</icon>
+
+</application>
