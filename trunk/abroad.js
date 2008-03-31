@@ -67,8 +67,11 @@ var ABROADWidget = {
 		this.templates.cassette = $("#cassette-template").html().replace(/\t|\n/g,"");
 		$("#cassette-template").remove();
 		$("div#page-navi").empty();
-		if(this.checkUpdate()) return this.confirmUpdate();
-		else return this.setStatus("search");
+		$.getJSON("http://widgets.ngsdev.org/info/abroad-air.js",function(d){
+			ABROADWidget.update = d;
+			if(d&&ABROADWidget.checkUpdate()) return ABROADWidget.confirmUpdate();
+			else return ABROADWidget.setStatus("search");
+		});
 	},
 	checkUpdate : function() {
 		var cversion = this.version.split(".").join("");
