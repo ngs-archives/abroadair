@@ -21,7 +21,10 @@ var ABROADWidget = {
 			});
 		});
 		$("form#search-form input[@name='order']").val(gv("order"));
+		$("form#search-form input[@type='text']").click(function(){ this.select(); });
 		$("#ab-order-sel").change(function(e){ ABROADWidget.changeSort($(this).val()); });
+		$("#ab-order-sel").selectbox({});
+		
 		//
 		$("a[@href='http://www.ab-road.net/']").append(this.getBeacon());
 		$("a[@href='http://www.ab-road.net/']").attr("href",this.vcURL("http:\/\/www.ab-road.net\/"));
@@ -47,7 +50,6 @@ var ABROADWidget = {
 		$("a[@rel='set-status']").click(function(){ ABROADWidget.setStatus($(this).attr("href").split("#").pop()); return false; });
 		$("a[@rel='close']").click(function(){ window.nativeWindow.close(); return false; });
 		$("a[@rel='minimize']").click(function(){ window.nativeWindow.minimize(); return false; });
-		$("input[@type='text']").click(function(){ this.select(); })
 		$("form#search-form").submit(function(){ ABROADWidget.search(); return false; });
 		$("div#error").click(function(){ ABROADWidget.setStatus("search"); });
 		$("body").addClass("browser");
@@ -108,7 +110,7 @@ var ABROADWidget = {
 	search : function(start) {
 		start = start ? start : 1;
 		var url = "http:\/\/webservice.recruit.co.jp\/ab-road\/tour\/v1\/?" + 
-		"key=" + Recruit.UI.key + "&format=json&" +
+		"key=" + Recruit.UI.key + "&format="+(air?"json":"jsonp&callback=?")+"&" +
 		"start=" + start + "&" + $( 'form#search-form' ).formSerialize()+
 		"&rnd="+Math.ceil(Math.random()*10000000).toString();
 		delete this.results;
@@ -292,6 +294,7 @@ var ABROADWidget = {
 	},
 	editor : {
 		write : function(fname,strd) {
+			if(!air) return;
 			var file = air.File.applicationStorageDirectory.resolvePath(fname);
 			var stream = new air.FileStream();
 			stream.open(file, air.FileMode.WRITE);
@@ -299,6 +302,7 @@ var ABROADWidget = {
 			stream.close();
 		},
 		read : function(fname) {
+			if(!air) return "";
 			var file = air.File.applicationStorageDirectory.resolvePath(fname);
 			if(!file.exists) return "";
 			var stream = new air.FileStream();
@@ -324,5 +328,6 @@ var pos = ABROADWidget.editor.read("window.txt");
 if(pos) {
 	pos = pos.split(",");
 	$.each(pos,function(i){ pos[i] = parseInt(this); });
-	window.nativeWindow.bounds = new air.Rectangle(pos[0],pos[1],pos[2],pos[3]);
+	window.nativeWindow.bounds = new air.Rectangle(pos[0],pos[1]);
+	//,pos[2],pos[3] window size fix
 }
