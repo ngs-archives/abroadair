@@ -3,7 +3,7 @@
 	<id>org.ngsdev.abroad</id>
 	<filename>abroad</filename>
 	<name>AB-ROAD</name>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<description>エイビーロードに掲載されているツアー情報を検索するAIRウィジェットです。</description>
 	<copyright>atsushi nagase http://ngsdev.org/</copyright>
 	<initialWindow>
