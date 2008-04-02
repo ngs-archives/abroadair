@@ -67,7 +67,7 @@ div#frame div#navi-bottom p#search-button a { background-image:url(images/navi-s
 div#frame div#navi-bottom p#submit-button a { background-image:url(images/navi-submit.png); }
 div#frame div#navi-bottom p#reset-button { padding-left:3px; }
 div#frame div#navi-bottom p#reset-button a { background-image:url(images/navi-reset.png); width:63px; }
-div#frame div#navi-bottom div#sort-order-popup { background:url(images/sort-order-popup.png); text-align: left; width:115px; height:19px; float:left; position:relative; top:4px; left:3px; }
+div#frame div#navi-bottom div#sort-order-popup { background:url(images/sort-order-popup.png); text-align: left; width:115px; height:19px; float:left; position:relative; top:3px; left:3px; }
 div#frame div#navi-bottom div#sort-order-popup select { display:none; }
 div#frame div#navi-bottom div#sort-order-popup #ab-order-sel_input { border:0; background:transparent; color:#fff; font-size:100%; padding:3px 0; display:block; text-indent:5px; cursor:pointer; }
 div#frame div#navi-bottom div#sort-order-popup div#ab-order-sel_container { position:absolute; top:19px; left:3px; border:1px solid #ccc; border-width:0 1px 1px 1px; }
