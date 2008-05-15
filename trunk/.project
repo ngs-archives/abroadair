@@ -3,6 +3,7 @@
 	<name>abroad-air</name>
 	<comment></comment>
 	<projects>
+		<project>abroad-widget</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
