@@ -1,4 +1,4 @@
-body { font-size:x-small; font-family: "Lucida Grande", "Verdana", "Meiryo", "Hiragino Kaku Gothic Pro W3", "�q���M�m�p�SPro W3", "HiraKakuPro-W3", "MS P�S�V�b�N", Sans-Serif; margin:0; }
+body { font-size:x-small; font-family: "Lucida Grande", "Verdana", "Meiryo", "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴPro W3", "HiraKakuPro-W3", "MS Pゴシック", Sans-Serif; margin:0; }
 em { font-style:normal; }
 fieldset { border:0; margin:0; padding:0; }
 legend { margin:0; padding:0; display:inline; float:left; }
@@ -97,8 +97,8 @@ div#results.overflow div#content div.cassette { width:370px; background-image:ur
 div#results.overflow div#content div.cassette div.info { background-image:url(images/cas-bottom2.png) }
 
 div#search form { margin:0; padding:3px; }
-div#search h2 { margin:0; padding:9px 7px; font-size:100%; color:#666; }
-div#search fieldset { width:100%; float:left; background:url(images/form-fieldset.png) no-repeat 0 0; height:38px; }
+div#search h2 { margin:0; padding:7px; font-size:100%; color:#666; }
+div#search fieldset { width:100%; float:left; background:url(Images/form-fieldset.png) no-repeat 0 0; height:38px; }
 div#search fieldset label { display:block; float:left; font-size:110%; font-weight:bold; color:#595959; }
 div#search fieldset legend label { width:66px; padding:13px 0 0 0; text-indent:13px; }
 div#search fieldset input,
@@ -106,14 +106,11 @@ div#search fieldset select,
 div#search fieldset span.spl { position:relative; top:8px; left:8px; display:block; float:left; }
 div#search fieldset span.spl { padding:5px; }
 div#search fieldset p { margin:0; }
-div#search fieldset p.ele { width:318px; background:url(images/form-input.png) no-repeat 0 2px; height:36px; float:left; }
-div#search fieldset.dept,
-div#search fieldset.dept2,
-div#search fieldset.month { margin-bottom:-1px; }
-div#search fieldset.dept p { float:left; width:192px; background:url(images/form-input.png) no-repeat 66px 2px; height:36px; }
+div#search fieldset p.ele { width:318px; background:url(Images/form-input.png) no-repeat 0 2px; height:36px; float:left; }
+div#search fieldset.dept { margin-bottom:-1px; }
+div#search fieldset.dept p { float:left; width:192px; background:url(Images/form-input.png) no-repeat 66px 2px; height:36px; }
 div#search fieldset.dept p label { padding:13px 0 0 0; text-indent:13px; width:66px; }
-div#search fieldset.month p select,
-div#search fieldset.dept2 p select { width:110px; }
+div#search fieldset.dept p select { width:110px; }
 div#search fieldset.destination { margin-bottom:3px; }
 div#search fieldset.destination p select { width:97px; margin:0 8px 0 0; }
 div#search fieldset.term { margin-bottom:-1px; }

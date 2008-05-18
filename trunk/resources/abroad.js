@@ -28,11 +28,17 @@ var ABROADWidget = {
 		//
 		$("a[@href='http://www.ab-road.net/']").append(this.getBeacon());
 		$("a[@href='http://www.ab-road.net/']").attr("href",this.vcURL("http:\/\/www.ab-road.net\/"));
+		var ou = function() {
+			$("#ab-area-sel,#ab-country-sel,#ab-city-sel").each(function(){
+				this.disabled = this.options.length<=1;
+			});
+		}
 		pd.places = new ABROAD.UI.Places.Pulldown({
-			area : { val:gv("area"), first_opt_text:getLocalizedString("select_area") },
-			country : { val:gv("country"), first_opt_text:getLocalizedString("select_country") },
-			city : { val:gv("city"), first_opt_text:getLocalizedString("select_city") }
+			area : { val:gv("area"), first_opt_text:getLocalizedString("select_area"), on_update_hook:ou },
+			country : { val:gv("country"), first_opt_text:getLocalizedString("select_country"), on_update_hook:ou },
+			city : { val:gv("city"), first_opt_text:getLocalizedString("select_city"), on_update_hook:ou }
 		});
+		$("#ab-area-sel,#ab-country-sel,#ab-city-sel").change(ou);
 		this.elements.pulldown = pd;
 		$("form#search-form input").each(function(){
 			$(this).val(ABROADWidget.pref.get($(this).attr("name")));
@@ -43,8 +49,14 @@ var ABROADWidget = {
 		});
 		$("a[@rel='submit']").click(function(){ $("form#"+$(this).attr("href").split("#").pop()).trigger("submit"); return false; });
 		$("a[@rel='reset']").click(function(){
-			$("form#"+$(this).attr("href").split("#").pop()).each(function(){ this.reset(); }); return false;
-			ABROADWidget.pref.remember();
+			var fm = $("form#"+$(this).attr("href").split("#").pop());
+			fm.each(function(){ this.reset(); });
+			$("select",fm).val("");
+			setTimeout(function(){
+				$("select",fm).trigger("change");
+				ABROADWidget.pref.remember();
+			},99);
+			return false;
 		});
 		$("a[@rel='external']").click(function(){ return ABROADWidget.getURL($(this).attr("href")); });
 		$("a[@rel='set-status']").click(function(){ ABROADWidget.setStatus($(this).attr("href").split("#").pop()); return false; });
