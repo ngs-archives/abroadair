@@ -63,6 +63,7 @@ var ABROADWidget = {
 		$("a[@rel='close']").click(function(){ window.nativeWindow.close(); return false; });
 		$("a[@rel='minimize']").click(function(){ window.nativeWindow.minimize(); return false; });
 		$("form#search-form").submit(function(){
+			$("form#search-form input[@type='text']").blur();
 			if(ABROADWidget._status=="search") ABROADWidget.search();
 			else ABROADWidget.setStatus("search");
 			return false;
