@@ -1,7 +1,7 @@
 /*
  * recruit.ui.js - UI library for Recruit Web Service
  * AUTHOR: Toshimasa Ishibashi iandeth [at] gmail.com
- * VERSION: 1.01
+ * VERSION: 1.03
  */
 
 // prototype.class.min.js - for Class.create() extension
@@ -28,9 +28,10 @@ if( typeof( Recruit.UI ) != 'function' ) {
 
 /*
  * Recruit.UI.Base - UI base class
- * VERSION 1.00
+ * VERSION 1.01
  * CHANGES
- *   2007-02-04 v1.00 released
+ *   2008-03-31 v1.01 _get_pre_func() 追加
+ *   2008-02-04 v1.00 released
  */
 Recruit.UI.Base = Class.create({
     initialize: function ( hash ){
@@ -90,6 +91,13 @@ Recruit.UI.Base = Class.create({
     },
     get_selections: function ( hash ){
         return {};
+    },
+    get_current_stat: function (){
+        // 今のプルダウン等の状態を返す
+        return {
+            val: '',
+            list: []  // { val: '', text: '' }, {}, {} ...
+        }
     }
 });
 
@@ -149,6 +157,21 @@ Class.create( Recruit.UI.Base, {
     },
     _create_option_label: function ( val ){
         return val;
+    },
+    get_current_stat: function (){
+        var ret = {};
+        ret.val = this.elm.val();
+        ret.name = this.elm.attr( 'name' );
+        ret.list = [];
+        this.elm.find( 'option' ).each( function ( i ){
+            var p = $( this );
+            if( p.val() == '' ){ return } // '指定なしは無視'
+            ret.list.push({
+                val: p.val(),
+                text: p.text()
+            });
+        });
+        return ret;
     }
 });
 Recruit.UI.Base.Pulldown.first_opt_text = '指定なし';
@@ -337,6 +360,31 @@ Class.create( Recruit.UI.Base, {
             { value: 'val2', label: 'lbl2', name: 'name2' },
             { value: 'val3', label: 'lbl3', name: 'name3' }
         ];
+    },
+    get_current_stat: function (){
+        var ret = {
+            val: {
+                values: [],
+                names: {}
+            },
+            list: []
+        };
+        var arr = this.elm.find( '.rui-checkbox-each' );
+        $.each( arr, function ( i, d ){
+            var box = $( d );
+            var inp = box.find( '.rui-checkbox-input' );
+            var lbl = box.find( '.rui-checkbox-label' );
+            ret.list.push({
+                name: inp.attr( 'name' ),
+                val:  inp.val(),
+                text: lbl.text()
+            });
+            if( inp.attr( 'checked' ) ){
+                ret.val.values.push( inp.val() );
+                ret.val.names[ inp.attr( 'name' ) ] = 1;
+            }
+        });
+        return ret;
     }
 });
 
@@ -481,12 +529,17 @@ var JSONP_skeleton = {
             hash.prm[ this.parent ] = this[ this.parent ];
         }
         hash.prm = this._fix_params( hash.prm );
-        var post_func = this._get_post_func();
+        var pre_func  = this._get_pre_func();
+        pre_func.apply( this, [ hash ] );  // do pre ajax hook
+        var post_func = this._get_post_func(); // post ajax hook
         this.driver.get( post_func, hash.prm );
     },
     // override-ables
     _fix_params: function ( prm ){
         return prm;  // do whatever need with ajax parameters
+    },
+    _get_pre_func: function (){
+        return function (){};
     },
     _get_post_func: function (){
         var _self = this;
@@ -528,16 +581,25 @@ var JSONP_skeleton = {
 /*
  * Recruit.UI.Base.Pulldown.JSONP - base class for pulldown UI's
  *     that retrieve selections from API request.
- * VERSION 1.00
+ * VERSION 1.01
  * CHANGES
+ *   2008-03-31 v1.01 _get_pre_func にて disabled = true に
  *   2008-01-22 v1.00 released
  */
 Recruit.UI.Base.Pulldown.JSONP =
 Class.create( Recruit.UI.Base.Pulldown, 
     $.extend( JSONP_skeleton, {
+        _get_pre_func: function (){
+            var func = function (){
+                this.elm.find( 'option:first' ).text( 'loading...' );
+                this.elm.attr( 'disabled', true ); // プルダウンを触れなくする
+            };
+            return func;
+        },
         _get_post_func: function (){
             var _self = this;
             var func = function ( success ){
+                _self.elm.attr( 'disabled', false ); // また触れるように
                 if( !success ){ return false }
                 Recruit.UI.Base.Pulldown.prototype.update_ui.apply(
                     _self, arguments );
