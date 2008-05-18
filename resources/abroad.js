@@ -62,7 +62,11 @@ var ABROADWidget = {
 		$("a[@rel='set-status']").click(function(){ ABROADWidget.setStatus($(this).attr("href").split("#").pop()); return false; });
 		$("a[@rel='close']").click(function(){ window.nativeWindow.close(); return false; });
 		$("a[@rel='minimize']").click(function(){ window.nativeWindow.minimize(); return false; });
-		$("form#search-form").submit(function(){ ABROADWidget.search(); return false; });
+		$("form#search-form").submit(function(){
+			if(ABROADWidget._status=="search") ABROADWidget.search();
+			else ABROADWidget.setStatus("search");
+			return false;
+		});
 		$("div#error").click(function(){ ABROADWidget.setStatus("search"); });
 		$("body").addClass("browser");
 		if(window.nativeWindow) {
