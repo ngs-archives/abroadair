@@ -1,4 +1,6 @@
-body { font-size:x-small; font-family: "Lucida Grande", "Verdana", "Meiryo", "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴPro W3", "HiraKakuPro-W3", "MS Pゴシック", Sans-Serif; margin:0; }
+body { cursor:default; -webkit-user-select:none; -khtml-user-select: none; user-select: none; font-size:x-small; font-family: "Lucida Grande", "Verdana", "Meiryo", "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴPro W3", "HiraKakuPro-W3", "MS Pゴシック", Sans-Serif; margin:0; }
+select,
+select option { cursor:default; }
 em { font-style:normal; }
 fieldset { border:0; margin:0; padding:0; }
 legend { margin:0; padding:0; display:inline; float:left; }
@@ -10,6 +12,7 @@ div#front { position:relative; top:0; left:0; }
 div#back { display:none; }
 body.back div#back { display:block; }
 body.back div#front { display:none; }
+a { cursor:pointer; }
 
 div#frame { width:434px; height:330px; background:url(images/default.png) no-repeat 0 0; position:absolute; top:0; left:0; z-index:101; } 
 div.content { width:392px; height:228px; position:absolute; top:50px; left:21px; overflow:hidden; }
@@ -36,7 +39,7 @@ body.search div#frame div#navi-bottom p#reset-button { display:block; }
 
 div#frame div.navi { position:absolute; left:15px; width:402px; }
 div#frame div.navi p { margin:0; }
-div#frame div#navi-top { top:16px; }
+div#frame div#navi-top { top:16px; cursor:default; }
 div#frame div#navi-top p#info-button { position: absolute; top: -7px; left: 385px; }
 div#frame div#navi-top p.powered { float:left; padding:0 0 0 10px; }
 div#frame div#navi-top p.powered a { width:95px; height:25px; float:left; display:block; text-indent:-9999px; overflow:hidden; }
