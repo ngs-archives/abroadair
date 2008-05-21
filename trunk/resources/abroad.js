@@ -121,6 +121,7 @@ var ABROADWidget = {
 	error : function(msg) {
 		msg = msg ?msg: getLocalizedString("error_unknown");
 		$("div#error p.message").html("<em>"+msg+"<\/em>");
+		$("body").one("keydown",function(e){ $("div#error").trigger("click"); })
 		this.setStatus("error");
 		return false;
 	},
