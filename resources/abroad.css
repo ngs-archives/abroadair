@@ -145,3 +145,6 @@ div#back address#credits p { margin:0 0 5px 0; }
 div#back address#credits p a { color:#999 }
 div#back address#credits p.banner a,
 div#back address#credits p.banner a img { display:block; width:135px; height:17px; } 
+
+p#hidden-beacon { position:absolute; top:-9999px; left:-9999px; margin:0; padding:0; width:1px; height:1px; }
+
