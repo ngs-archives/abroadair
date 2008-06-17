@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>abroad-air</name>
+	<comment></comment>
+	<projects>
+		<project>abroad-widget</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.aptana.ide.apollo.apollobuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.asdt.compiler.ASBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.aptana.ide.apollo.apollonature</nature>
+		<nature>org.asdt.core.ASNature</nature>
+	</natures>
+</projectDescription>
