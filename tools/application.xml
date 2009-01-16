@@ -7,7 +7,7 @@
 	<description>エイビーロードに掲載されているツアー情報を検索するAIRウィジェットです。</description>
 	<copyright>atsushi nagase http://ngsdev.org/</copyright>
 	<initialWindow>
-		<content>resources/abroad.html</content>
+		<content>abroad.html</content>
 		<title>エイビーロード ツアー検索</title>
 		<systemChrome>none</systemChrome>
 		<transparent>true</transparent>
@@ -23,10 +23,10 @@
 		<maxSize>434 400</maxSize>
 	</initialWindow>
 	<icon>
-		<image16x16>resources/icons/icon16.png</image16x16>
-		<image32x32>resources/icons/icon32.png</image32x32>
-		<image48x48>resources/icons/icon48.png</image48x48>
-		<image128x128>resources/icons/icon128.png</image128x128>
+		<image16x16>icons/icon16.png</image16x16>
+		<image32x32>icons/icon32.png</image32x32>
+		<image48x48>icons/icon48.png</image48x48>
+		<image128x128>icons/icon128.png</image128x128>
 	</icon>
 
 </application>
